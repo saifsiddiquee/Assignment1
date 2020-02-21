@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnInfo;
     TextView txtList;
     String selectedItem;
-    private Information info = new Information();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +33,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 selectedItem = String.valueOf(spinnerName.getSelectedItem());
-                List<String> list = info.getInformations(selectedItem);
-                StringBuilder listFormatted = new StringBuilder();
-                for (String names : list) {
-                    listFormatted.append(names).append('\n');
-                }
-                txtList.setVisibility(View.VISIBLE);
-                txtList.setText(listFormatted);
+
+                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                intent.putExtra("DATA", selectedItem);
+                startActivity(intent);
             }
         });
     }
